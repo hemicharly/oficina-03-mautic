@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  mautic_db:
+    image: percona/percona-server:5.7
+    container_name: mautic_db
+    volumes:
+      - mautic_mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_PASSWORD: root123
+      MYSQL_DATABASE: mautic_database
+    command:
+      --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    networks:
+      - mautic_net
+
+  mautic_app:
+    container_name: mautic_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: g7cloud-solutions/mautic:latest
+    depends_on:
+      - mautic_db
+    volumes:
+      - mautic_data:/var/www/html:rw
+      - mautic_logs:/var/log:rw
+    networks:
+      - mautic_net
+    ports:
+      - "8080:80"
+
+volumes:
+  mautic_mysql_data:
+    driver: local
+  mautic_data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: $PWD/mautic
+  mautic_logs:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: $PWD/logs
+networks:
+  mautic_net:
+    driver: bridge
