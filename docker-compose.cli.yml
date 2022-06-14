@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  php:
+    image: g7cloud-solutions/mautic:latest
+    volumes:
+      - mautic_data:/var/www/html:rw
+      - mautic_logs:/var/log:rw
+    networks:
+      - mautic_net
+    entrypoint: php
+
+volumes:
+  mautic_data:
+    driver: local
+    external: true
+    driver_opts:
+      o: bind
+      type: none
+      device: $PWD/mautic
+  mautic_logs:
+    driver: local
+    external: true
+    driver_opts:
+      o: bind
+      type: none
+      device: $PWD/logs
+networks:
+  mautic_net:
+    external: true

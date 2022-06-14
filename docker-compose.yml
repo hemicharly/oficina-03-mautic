@@ -36,16 +36,18 @@ volumes:
     driver: local
   mautic_data:
     driver: local
+    external: true
     driver_opts:
       o: bind
       type: none
       device: $PWD/mautic
   mautic_logs:
     driver: local
+    external: true
     driver_opts:
       o: bind
       type: none
       device: $PWD/logs
 networks:
   mautic_net:
-    driver: bridge
+    external: true

@@ -18,13 +18,40 @@ Os recursos a seguir devem ser instalados em uma `EC2 da AWS` com o sistema oper
   - MySQL-5.7 (*Opcional, usar apenas para testes locais*)
   - Mautic-4.3.1 (*Construído a partir da imagem do arquivo `Dockerfile`*)
 
+###### 2.3. Arquivo docker-compose.cli
+
+Este arquivo tem como finalidade auxilar, caso precise executar comandos `php` dentro do container. Isto ajudaria bastante, pois a documentação do mautic relata diversos comandos que podem ser executado, para fazer algum configuração especifica.
+- Recomendamos criar uma alias `dcli` para executar o comando:  `docker-compose -f docker-compose.cli.yml run --rm`
+
+- Exemplo de execução de comando de fila
+   ```bash
+   dcli php ./bin/console mautic:queue:process --env=prod -i page_hit
+   ```
+- Exemplo de execução de comando de cron jobs.
+   ```bash
+   dcli php ./bin/console mautic:email:send
+   ```
 
 #### 3.  Para executar o projeto
 
-* Criei duas pastas no diretorio deste projeto com os seguintes nomes: `mautic` e `logs`
+* Crie duas pastas no diretorio deste projeto com os seguintes nomes: `mautic` e `logs`
     ```bash
-      mkdir mautic && mkdir logs
+    mkdir mautic && mkdir logs
     ```
+  
+* Crie `volumes external` docker
+  ```bash
+  docker volume create --name=mautic_data
+    ```
+
+  ```bash
+  docker volume create --name=mautic_logs
+    ```
+
+* Crie `network external` docker
+   ```bash
+   docker network create mautic_net
+   ```
 
 * Para construção das imagens `mautic_db` e `mautic_app`
     ```bash
