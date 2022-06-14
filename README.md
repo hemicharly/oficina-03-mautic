@@ -21,7 +21,10 @@ Os recursos a seguir devem ser instalados em uma `EC2 da AWS` com o sistema oper
 ###### 2.3. Arquivo docker-compose.cli
 
 Este arquivo tem como finalidade auxilar, caso precise executar comandos `php` dentro do container. Isto ajudaria bastante, pois a documentação do mautic relata diversos comandos que podem ser executado, para fazer algum configuração especifica.
-- Recomendamos criar uma alias `dcli` para executar o comando:  `docker-compose -f docker-compose.cli.yml run --rm`
+- Recomendamos criar uma alias `dcli` no linux para não ter que ficar sempre executando o comando
+  ```bash
+  docker-compose -f docker-compose.cli.yml run --rm
+  ```
 
 - Exemplo de execução de comando de fila
   ```bash
