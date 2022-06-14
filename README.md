@@ -24,57 +24,57 @@ Este arquivo tem como finalidade auxilar, caso precise executar comandos `php` d
 - Recomendamos criar uma alias `dcli` para executar o comando:  `docker-compose -f docker-compose.cli.yml run --rm`
 
 - Exemplo de execução de comando de fila
-   ```bash
-   dcli php ./bin/console mautic:queue:process --env=prod -i page_hit
-   ```
+  ```bash
+  dcli php ./bin/console mautic:queue:process --env=prod -i page_hit
+  ```
 - Exemplo de execução de comando de cron jobs.
-   ```bash
-   dcli php ./bin/console mautic:email:send
-   ```
+  ```bash
+  dcli php ./bin/console mautic:email:send
+  ```
 
 #### 3.  Para executar o projeto
 
 * Crie duas pastas no diretorio deste projeto com os seguintes nomes: `mautic` e `logs`
-    ```bash
-    mkdir mautic && mkdir logs
-    ```
+  ```bash
+  mkdir mautic && mkdir logs
+  ```
   
 * Crie `volumes external` docker
   ```bash
   docker volume create --name=mautic_data
-    ```
-
+  ```
   ```bash
   docker volume create --name=mautic_logs
-    ```
+  ```
 
 * Crie `network external` docker
-   ```bash
-   docker network create mautic_net
-   ```
+  ```bash
+  docker network create mautic_net
+  ```
 
 * Para construção das imagens `mautic_db` e `mautic_app`
-    ```bash
-      docker-compose build
-    ```
+  ```bash
+  docker-compose build
+  ```
 
 * Para iniciar os containers `mautic_db` e `mautic_app`
-    ```bash
-      docker-compose up
-    ```
-    ou em background
-    ```bash
-      docker-compose up -d
-    ```
+  ```bash
+  docker-compose up
+  ```
+  ou em background
+  ```bash
+  docker-compose up -d
+  ```
 
 * Para verificar se os containers `mautic_db` e `mautic_app` foram inicializados
-    ```bash
-      docker-compose ps
-    ```
+  ```bash
+  docker-compose ps
+  ```
+
 * Para derrubar os containers `mautic_db` e `mautic_app`
-    ```bash
-      docker-compose down
-    ```
+  ```bash
+  docker-compose down
+  ```
 
 #### 4.  Montagem do volume da imagem
 
