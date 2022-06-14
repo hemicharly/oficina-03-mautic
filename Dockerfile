@@ -29,10 +29,9 @@ RUN wget https://github.com/mautic/mautic/releases/download/${MAUTIC_VERSION}/${
 
 # Configurando permissões do usuário
 ENV USERNAME www-data
-RUN chown -R ${USERNAME}:${USERNAME} ${DIR} &&\
+RUN usermod -u 1000 ${USERNAME} &&\
+    chown -R ${USERNAME}:${USERNAME} ${DIR} && chmod -R 755 ${DIR} &&\
     chown -R ${USERNAME}:${USERNAME} /var/log && chmod -R 755 /var/log
-
-#USER ${USERNAME}
 
 # Denifindo o diretorio principal
 WORKDIR ${DIR}
